@@ -1,6 +1,11 @@
 const addBtn = document.querySelector('.btn-add');
 const body = document.querySelector('body');
 const main = document.querySelector('.main');
+const title = document.getElementById('title');
+const author = document.getElementById('author');
+const pages = document.getElementById('pages');
+const progress = document.getElementById('progress');
+
 
 
 const myLibrary = [];
@@ -15,10 +20,6 @@ function Book (title, author, pages, readindgStatus) {
     }
 }
 
-
-function addBookToLibrary () {
-
-};
 
 
 //add several books to lybrary for display
@@ -50,6 +51,8 @@ function displayBook (arr) {
 
 displayBook(myLibrary);
 
+//remove button
+
 const removeBtn = document.querySelectorAll('button[data-big-dick]');
 removeBtn.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -65,7 +68,51 @@ removeBtn.forEach(btn => {
 })
 console.log(myLibrary);
 
+//add book to the array
 
-// function deleteBook (i, arr) {
-//     arr.splice(i,1);
-// }
+document.querySelector('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const newBook = new Book(title.value, author.value, pages.value, progress.value)
+    myLibrary.push(newBook);
+    // displayBook(myLibrary);
+    addBook(myLibrary);
+
+    document.querySelector('form').reset();
+
+    console.log(myLibrary[myLibrary.length - 1]);
+})
+
+
+addBtn.addEventListener('click', function () {
+    
+});
+
+// create card
+
+function addBook (arr) {
+    const card = document.createElement("div");
+    card.innerText = arr[arr.length - 1].info();
+    card.dataset.bigDick = `${arr.length}`;
+    main.appendChild(card);
+    const btn = document.createElement('button');
+    btn.innerText = 'Remove';
+    btn.dataset.bigDick = `${arr.length}`;
+    card.appendChild(btn);
+
+    btn.addEventListener('click', (e) => {
+        delete myLibrary[(e.target.dataset.bigDick) - 1];
+        main.removeChild(e.target.closest("div[data-big-dick]"))
+     })
+
+     console.log(myLibrary);
+}
+
+
+//remove card button
+
+function removeCard (btn, e) {
+    btn.addEventListener('click', (e) => {
+        delete myLibrary[(e.target.dataset.bigDick) - 1];
+        main.removeChild(e.target.closest("div[data-big-dick]"))
+     })
+}
