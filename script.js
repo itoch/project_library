@@ -51,6 +51,11 @@ function displayBook(arr) {
     btn.innerText = "Remove";
     btn.dataset.bigDick = `${i + 1}`;
     card.appendChild(btn);
+
+    const statusBtn = document.createElement('button');
+    statusBtn.innerText = "Status";
+    card.appendChild(statusBtn);
+
   }
 }
 
@@ -97,7 +102,7 @@ addBtn.addEventListener("click", function () {});
 // create card
 
 function addBook(arr) {
-  const card = document.createElement("div");
+  const card = document.createElement("div"); 
   card.innerText = arr[arr.length - 1].info();
   card.dataset.bigDick = `${arr.length}`;
   main.appendChild(card);
@@ -123,3 +128,8 @@ function removeCard(btn, e) {
   });
 }
 
+// toggle status
+
+statusBtn.addEventListener('click', function (e) {
+  
+})
