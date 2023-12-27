@@ -5,6 +5,7 @@ const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const progress = document.getElementById("progress");
+let readindgStatus = "Didn't read";
 
 const myLibrary = [];
 
@@ -45,16 +46,22 @@ function displayBook(arr) {
     }
     const card = document.createElement("div");
     card.innerText = arr[i].info();
-    card.dataset.bigDick = `${i + 1}`;
+    card.dataset.bookCard = `${i + 1}`;
     main.appendChild(card);
     const btn = document.createElement("button");
     btn.innerText = "Remove";
-    btn.dataset.bigDick = `${i + 1}`;
+    btn.dataset.bookCard = `${i + 1}`;
     card.appendChild(btn);
 
     const statusBtn = document.createElement('button');
     statusBtn.innerText = "Status";
     card.appendChild(statusBtn);
+
+    statusBtn.addEventListener('click', function (e) {
+      // console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
+      // console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus = "Didn't read");
+
+    })
 
   }
 }
@@ -63,15 +70,15 @@ displayBook(myLibrary);
 
 //remove button
 
-const removeBtn = document.querySelectorAll("button[data-big-dick]");
+const removeBtn = document.querySelectorAll("button[data-book-card]");
 removeBtn.forEach((btn) => {
   btn.addEventListener("click", (e) => {
-    console.log(e.target.dataset.bigDick);
-    delete myLibrary[e.target.dataset.bigDick - 1];
+    console.log(e.target.dataset.bookCard);
+    delete myLibrary[e.target.dataset.bookCard - 1];
     console.log(myLibrary);
     console.log(e.target);
-    console.log(e.target.closest("div[data-big-dick]"));
-    main.removeChild(e.target.closest("div[data-big-dick]"));
+    console.log(e.target.closest("div[data-book-card]"));
+    main.removeChild(e.target.closest("div[data-book-card]"));
     //    displayBook(myLibrary);
     console.log(myLibrary);
   });
@@ -104,16 +111,16 @@ addBtn.addEventListener("click", function () {});
 function addBook(arr) {
   const card = document.createElement("div"); 
   card.innerText = arr[arr.length - 1].info();
-  card.dataset.bigDick = `${arr.length}`;
+  card.dataset.bookCard = `${arr.length}`;
   main.appendChild(card);
   const btn = document.createElement("button");
   btn.innerText = "Remove";
-  btn.dataset.bigDick = `${arr.length}`;
+  btn.dataset.bookCard = `${arr.length}`;
   card.appendChild(btn);
 
   btn.addEventListener("click", (e) => {
-    delete myLibrary[e.target.dataset.bigDick - 1];
-    main.removeChild(e.target.closest("div[data-big-dick]"));
+    delete myLibrary[e.target.dataset.bookCard - 1];
+    main.removeChild(e.target.closest("div[data-book-card]"));
   });
 
   console.log(myLibrary);
@@ -123,13 +130,18 @@ function addBook(arr) {
 
 function removeCard(btn, e) {
   btn.addEventListener("click", (e) => {
-    delete myLibrary[e.target.dataset.bigDick - 1];
-    main.removeChild(e.target.closest("div[data-big-dick]"));
+    delete myLibrary[e.target.dataset.bookCard - 1];
+    main.removeChild(e.target.closest("div[data-book-card]"));
   });
 }
 
 // toggle status
 
-statusBtn.addEventListener('click', function (e) {
-  
-})
+
+
+/*Book
+author: "J. R. R. Tolkien"
+info:ƒ ()
+pages:295
+readindgStatus:"not read yet"
+title:"The Hobbit"*/
