@@ -26,14 +26,24 @@ const theHobbit = new Book(
   295,
   "not read yet"
 );
-const harryPotter = new Book("Harry Potter", "J. K. Rowling", 305, "read");
+const harryPotter = new Book(
+  "Harry Potter",
+  "J. K. Rowling",
+  305,
+  "read"
+);
 const toKillMockingbird = new Book(
   "To Kill a Mockingbird",
   "H. Lee",
   281,
   "read"
 );
-const theIdiot = new Book("The Idiot", "F. Dostoevsky", 768, "not read yet");
+const theIdiot = new Book(
+  "The Idiot",
+  "F. Dostoevsky",
+  768,
+  "not read yet"
+);
 
 myLibrary.push(theHobbit, harryPotter, toKillMockingbird, theIdiot);
 
@@ -60,11 +70,36 @@ function displayBook(arr) {
     statusBtn.addEventListener('click', function (e) {
       // console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
       // console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus = "Didn't read");
+      console.log(object);
 
     })
 
   }
 }
+
+/*
+function addBook(arr) {
+  const card = document.createElement("div"); 
+  card.innerText = arr[arr.length - 1].info();
+  card.dataset.bookCard = `${arr.length}`;
+  main.appendChild(card);
+  const btn = document.createElement("button");
+  btn.innerText = "Remove";
+  btn.dataset.bookCard = `${arr.length}`;
+  card.appendChild(btn);
+
+  btn.addEventListener("click", (e) => {
+    delete myLibrary[e.target.dataset.bookCard - 1];
+    main.removeChild(e.target.closest("div[data-book-card]"));
+  });
+
+  console.log(myLibrary);
+}
+
+*/
+
+
+
 
 displayBook(myLibrary);
 
