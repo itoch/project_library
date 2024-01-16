@@ -5,7 +5,7 @@ const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const progress = document.getElementById("progress");
-let readindgStatus = "Didn't read";
+let readindgStatus = "Want to read";
 
 const myLibrary = [];
 
@@ -24,25 +24,25 @@ const theHobbit = new Book(
   "The Hobbit",
   "J. R. R. Tolkien",
   295,
-  "not read yet"
+  "Want to read"
 );
 const harryPotter = new Book(
   "Harry Potter",
   "J. K. Rowling",
   305,
-  "read"
+  "Read"
 );
 const toKillMockingbird = new Book(
   "To Kill a Mockingbird",
   "H. Lee",
   281,
-  "read"
+  "Read"
 );
 const theIdiot = new Book(
   "The Idiot",
   "F. Dostoevsky",
   768,
-  "not read yet"
+  "Want to read"
 );
 
 myLibrary.push(theHobbit, harryPotter, toKillMockingbird, theIdiot);
@@ -64,7 +64,7 @@ function displayBook(arr) {
     card.appendChild(btn);
 
     const statusBtn = document.createElement('button');
-    statusBtn.innerText = "Status";
+    statusBtn.innerText = arr[i].readindgStatus;
     card.appendChild(statusBtn);
 
     statusBtn.addEventListener('click', function (e) {
@@ -144,8 +144,9 @@ addBtn.addEventListener("click", function () {});
 // create card
 
 function addBook(arr) {
-  const card = document.createElement("div"); 
-  card.innerText = arr[arr.length - 1].info();
+  const card = document.createElement("div");
+  const currBook = arr[arr.length - 1];
+  card.innerText = currBook.info();
   card.dataset.bookCard = `${arr.length}`;
   main.appendChild(card);
   const btn = document.createElement("button");
@@ -157,6 +158,17 @@ function addBook(arr) {
     delete myLibrary[e.target.dataset.bookCard - 1];
     main.removeChild(e.target.closest("div[data-book-card]"));
   });
+
+  const statusBtn = document.createElement('button');
+  statusBtn.innerText = currBook.readindgStatus;
+  card.appendChild(statusBtn);
+
+  statusBtn.addEventListener('click', function (e) {
+    // console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
+    // console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus = "Didn't read");
+    console.log(object);
+
+  })
 
   console.log(myLibrary);
 }
