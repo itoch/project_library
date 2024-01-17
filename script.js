@@ -68,9 +68,9 @@ function displayBook(arr) {
     card.appendChild(statusBtn);
 
     statusBtn.addEventListener('click', function (e) {
-      // console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
-      // console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus = "Didn't read");
-      console.log(object);
+      console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
+      console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus);
+      // console.log(e);
 
     })
 
@@ -166,7 +166,7 @@ function addBook(arr) {
   statusBtn.addEventListener('click', function (e) {
     // console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
     // console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus = "Didn't read");
-    console.log(object);
+    console.log(e);
 
   })
 
@@ -192,3 +192,14 @@ info:ƒ ()
 pages:295
 readindgStatus:"not read yet"
 title:"The Hobbit"*/
+
+
+//function that toggle readingStatus
+
+function changingStatus(book, e) {
+  if (book.readindgStatus === "read") {
+    book.readindgStatus = "Want to read";
+  } else {
+    book.readindgStatus = "Read";
+  }   
+}
