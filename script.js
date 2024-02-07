@@ -26,20 +26,23 @@ const theHobbit = new Book(
   295,
   "Want to read"
 );
+  
 const harryPotter = new Book(
   "Harry Potter",
   "J. K. Rowling",
   305,
   "Read"
 );
+
 const toKillMockingbird = new Book(
   "To Kill a Mockingbird",
   "H. Lee",
   281,
   "Read"
 );
+  
 const theIdiot = new Book(
-  "The Idiot",
+    "The Idiot",
   "F. Dostoevsky",
   768,
   "Want to read"
@@ -51,74 +54,54 @@ myLibrary.push(theHobbit, harryPotter, toKillMockingbird, theIdiot);
 
 function displayBook(arr) {
   for (let i = 0; i < arr.length; i++) {
-    if (!arr[i]) {
-      continue;
-    }
+    
     const card = document.createElement("div");
+
     card.innerText = arr[i].info();
     card.dataset.bookCard = `${i + 1}`;
     main.appendChild(card);
-    const btn = document.createElement("button");
-    btn.innerText = "Remove";
-    btn.dataset.bookCard = `${i + 1}`;
-    card.appendChild(btn);
 
-    const statusBtn = document.createElement('button');
-    statusBtn.innerText = arr[i].readindgStatus;
-    card.appendChild(statusBtn);
-
-    statusBtn.addEventListener('click', function (e) {
-      console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
-      console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus);
-      // console.log(e);
-
-    })
+    createBtns(card, arr, i);
 
   }
 }
 
-/*
-function addBook(arr) {
-  const card = document.createElement("div"); 
-  card.innerText = arr[arr.length - 1].info();
-  card.dataset.bookCard = `${arr.length}`;
-  main.appendChild(card);
+
+function createBtns(card, arr, i, currBook) {
   const btn = document.createElement("button");
   btn.innerText = "Remove";
-  btn.dataset.bookCard = `${arr.length}`;
-  card.appendChild(btn);
+  btn.classList.add("remove-btn");
+  card.appendChild(btn);  
 
-  btn.addEventListener("click", (e) => {
-    delete myLibrary[e.target.dataset.bookCard - 1];
-    main.removeChild(e.target.closest("div[data-book-card]"));
-  });
+  const statusBtn = document.createElement('button');
+  statusBtn.innerText = arr[i] ? arr[i].readindgStatus : currBook.readindgStatus; // что бы работала в функции addBook т.к. там у меня нет доступа к итератору, а только к currBook. В displayBook напротив - нет currBook.
+  card.appendChild(statusBtn);
 
-  console.log(myLibrary);
+  removeBtnEvent(btn);
+  statusBtnEvent(statusBtn);
 }
-
-*/
-
-
-
 
 displayBook(myLibrary);
 
-//remove button
+//add eventListener to remove button.
 
-const removeBtn = document.querySelectorAll("button[data-book-card]");
-removeBtn.forEach((btn) => {
+function removeBtnEvent(btn) {
   btn.addEventListener("click", (e) => {
-    console.log(e.target.dataset.bookCard);
-    delete myLibrary[e.target.dataset.bookCard - 1];
-    console.log(myLibrary);
-    console.log(e.target);
-    console.log(e.target.closest("div[data-book-card]"));
+    delete myLibrary[e.target.closest("div[data-book-card]").dataset.bookCard - 1];
     main.removeChild(e.target.closest("div[data-book-card]"));
-    //    displayBook(myLibrary);
-    console.log(myLibrary);
   });
-});
-console.log(myLibrary);
+}
+
+//add eventListener to status button
+
+function statusBtnEvent(statusBtn) {
+  statusBtn.addEventListener('click', function (e) {
+    console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
+    console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus);
+    // console.log(e);
+
+  })
+}
 
 //add book to the array
 
@@ -139,52 +122,22 @@ document.querySelector("form").addEventListener("submit", function (e) {
   console.log(myLibrary[myLibrary.length - 1]);
 });
 
-addBtn.addEventListener("click", function () {});
-
 // create card
 
 function addBook(arr) {
   const card = document.createElement("div");
+
   const currBook = arr[arr.length - 1];
   card.innerText = currBook.info();
   card.dataset.bookCard = `${arr.length}`;
   main.appendChild(card);
-  const btn = document.createElement("button");
-  btn.innerText = "Remove";
-  btn.dataset.bookCard = `${arr.length}`;
-  card.appendChild(btn);
 
-  btn.addEventListener("click", (e) => {
-    delete myLibrary[e.target.dataset.bookCard - 1];
-    main.removeChild(e.target.closest("div[data-book-card]"));
-  });
+  createBtns(card, arr, undefined,currBook); // чем заменить undefined чтобы пропустить аргумент "i"
 
-  const statusBtn = document.createElement('button');
-  statusBtn.innerText = currBook.readindgStatus;
-  card.appendChild(statusBtn);
 
-  statusBtn.addEventListener('click', function (e) {
-    // console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
-    // console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus = "Didn't read");
-    console.log(e);
-
-  })
-
-  console.log(myLibrary);
-}
-
-//remove card button
-
-function removeCard(btn, e) {
-  btn.addEventListener("click", (e) => {
-    delete myLibrary[e.target.dataset.bookCard - 1];
-    main.removeChild(e.target.closest("div[data-book-card]"));
-  });
 }
 
 // toggle status
-
-
 
 /*Book
 author: "J. R. R. Tolkien"
