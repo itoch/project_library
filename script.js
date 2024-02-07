@@ -96,10 +96,9 @@ function removeBtnEvent(btn) {
 
 function statusBtnEvent(statusBtn) {
   statusBtn.addEventListener('click', function (e) {
-    console.log(e.target.closest('div[data-book-card]').dataset.bookCard);
-    console.log(myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard-1].readindgStatus);
-    // console.log(e);
-
+    const currObj = myLibrary[e.target.closest('div[data-book-card]').dataset.bookCard - 1];
+    console.log(currObj);
+    changingStatus(currObj, statusBtn);
   })
 }
 
@@ -149,10 +148,14 @@ title:"The Hobbit"*/
 
 //function that toggle readingStatus
 
-function changingStatus(book, e) {
-  if (book.readindgStatus === "read") {
-    book.readindgStatus = "Want to read";
+function changingStatus(currObj, statusBtn) {
+  if (currObj.readindgStatus == "Read") {
+    currObj.readindgStatus = "Want to read";
+    statusBtn.innerText = "Want to read";
+    
   } else {
-    book.readindgStatus = "Read";
+    currObj.readindgStatus = "Read";
+    statusBtn.innerText = "Read";
+
   }   
 }
